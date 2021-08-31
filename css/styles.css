@@ -639,6 +639,18 @@ progress {
   margin-left: auto;
 }
 
+.containerx{
+  width: 100%;
+  padding-right: var(--bs-gutter-x, 0.75rem);
+  padding-left: var(--bs-gutter-x, 0.75rem);
+}
+.top_a{
+  margin-right: 4%;
+}
+.top_b{
+  margin-left: 10%;
+}
+
 @media (min-width: 576px) {
   .container-sm, .container {
     max-width: 540px;
@@ -11286,7 +11298,9 @@ textarea.form-control-lg {
 .features-icons .features-icons-item .features-icons-icon i {
   font-size: 4.5rem;
 }
-
+header.blindhead{
+  background: url("../assets/img/auction.png") no-repeat center center !important;
+}
 header.masthead {
   position: relative;
   background-color: #343a40;
