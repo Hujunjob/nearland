@@ -1,0 +1,14 @@
+{
+  "name": "webpack-demo15",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "webpack-dev-server --open --history-api-fallback",
+    "build": "browserify ./src/index.js -o ./bundle.js"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@walletconnect/web3-provider": "^1.6.5",
+    "ethers": "^5.4.7",
+    "web3": "^1.5.2"
+  }
+}
