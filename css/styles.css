@@ -11380,3 +11380,28 @@ footer.footer {
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
+
+.title{
+  padding-top: 12px;
+  font-size: 22px;
+  color: #454545;
+}
+.img-wrap {
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.content {
+  width:80%;
+  padding: 10px 0;
+  overflow: hidden;
+}
+.img-box {
+  overflow: hidden;
+  height: 200px;
+  width: 200px;
+}
+.img-box img {
+  position: relative;
+  width: 100%;
+}
