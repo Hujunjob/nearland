@@ -3,6 +3,7 @@ const webutils = require('web3-utils')
 var contractsInstance = {};
 const NFTContact = "0x12bF1910F53CA36Cb0455f6630eF4172f654711F";
 const VerifyContact = '0x78a1c22D35c274Bc25C167DBC32d64030e635A81';
+
 App = {
     web3Provider: null,
     erc20ABI: null,
@@ -42,6 +43,7 @@ App = {
             });
             if (printLog) console.log("chainid=" + window.ethereum.chainId);
             var chainId = window.ethereum.chainId;
+
             ////chainId === "0x1" main, chainId === "0x3" ropsten, chainId === "0x4" rinkey
             var chain = ChainId[0];
             if (chainId === '0x1') {
@@ -51,6 +53,11 @@ App = {
             } else if (chainId === '0x4') {
                 chain = ChainId[2];
             }
+
+            if(chainId==='0x3'){
+                $("#wrongnetwork").hide();
+            }
+
             ETHENV.init(chain);
             return App.initWallet();
         }
