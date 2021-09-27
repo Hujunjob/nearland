@@ -50,9 +50,8 @@ li {
             <a class="navbar-brand top_a" style="margin-left: 5%;" href="index.html">HashWorld</a>
             <a class="btn top_a" href="index.html">Home</a>
             <a class="btn  top_a" href="blindbox.html">Blind Boxes</a>
-            <a class="btn  top_a" href="#">My Boxes</a>
             <a class="btn  top_a" href="roadmap.html">Roadmap</a>
-            <a class="btn  top_a" href="#signup">Play</a>
+            <a class="btn  top_a" hidden href="#signup">Play</a>
             <a class="btn  top_right" href="#" id='walletaddress'>Connect</a>
     </nav>
         <!-- Masthead-->
@@ -99,46 +98,16 @@ li {
         
         <div>
             <p style="text-align: center;font-size: 30px;margin-top: 4%;">My Boxes</p>
-
-            <div style="margin-left: 5%;">
-
-                <li>
-                    <div class="content">
-                        <div class="img-wrap">
-                            <div class="img-box">
-                                <img src="assets/img/ape/ape1.jpeg">
-                            </div>
-                            
-                        </div>
-                        <div class="title">ape1</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="content">
-                        <div class="img-wrap">
-                            <div class="img-box">
-                                <img src="assets/img/ape/ape2.jpeg">
-                            </div>
-                        </div>
-                        <div class="title">ape1</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="content">
-                        <div class="img-wrap">
-                            <div class="img-box">
-                                <img src="assets/img/ape/ape3.jpeg">
-                            </div>
-                        </div>
-                        <div class="title">ape1</div>
-                    </div>
-                </li>
+            <a style="margin-left: 5%;" class="" href="https://opensea.io/account" target="_blank">Check on Opensea</a>
+            <div style="margin-left: 5%;" id='myboxes'>
+                <p id='mytotalnft'>My Boxes : 0</p>
+                
             </div>
             
         </div>
 
         <!-- Call to Action-->
-        <section class="call-to-action text-white text-center" id="signup">
+        <section class="call-to-action text-white text-center" id="signup" hidden>
             <div class="container position-relative">
                 <div class="row justify-content-center">
                     <div class="col-xl-6">

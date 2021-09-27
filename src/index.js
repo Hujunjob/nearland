@@ -1,14 +1,15 @@
 const Web3 = require('web3');
 const webutils = require('web3-utils')
-const ethers = require('ethers');
 var contractsInstance = {};
-const NFTContact = "0x0F7342060898e850C1D602509Ac5717E09e14b9b";
+const NFTContact = "0x12bF1910F53CA36Cb0455f6630eF4172f654711F";
 const VerifyContact = '0x78a1c22D35c274Bc25C167DBC32d64030e635A81';
 App = {
     web3Provider: null,
     erc20ABI: null,
     uniV2PairABI: null,
     enableWalletConnect: false,
+    nftprice:0,
+    nfttotal:0,
     init: function () {
         return App.initWeb3();
     },
@@ -78,6 +79,49 @@ App = {
         contractsInstance.seven.methods.maxSupply().call(function (e, r) {
             if (printLog) console.log("maxSupply =" + r);
             $("#totalcount").text("Total : "+r);
+            nfttotal = r;
+                    //nextTokenId
+            contractsInstance.seven.methods.nextTokenId().call((e,r)=>{
+                //Sold : 688 / 2000
+                $("#soldnum").text("Sold : "+r+" / "+nfttotal);
+            });
+        });
+
+        contractsInstance.seven.methods.tokenPrice().call(function (e, r) {
+            if (printLog) console.log("tokenPrice =" + r);
+            r = new BigNumber(r);
+            $("#tokenprice").text("Price : "+r.div(Math.pow(10,18))+"ETH");
+            nftprice = r;
+        });
+        contractsInstance.seven.methods.balanceOf(defaultAccount).call((e,r)=>{
+            $("#mytotalnft").text("My Boxes Amount : "+r);
+            for (let index = 0; index < r; index++) {
+                contractsInstance.seven.methods.tokenOfOwnerByIndex(defaultAccount,index).call((e,r)=>{
+                    console.log("my nft token id="+r);
+                    var myboxes = $("#myboxes");
+                    // myboxes.load('hashunbox.html?'+r);
+                    var node = $("<li></li>");
+                    var divnode=$("<div class='content'></div>");
+                    // var svg = 'hashunbox.html#'+r;
+                    // divnode.get('hashunbox.html',{id:r});
+                    // $.get("hashunbox.html?"+r,{id:r},(data,status)=>{
+                        // console.log(data);
+                        // divnode.html(data);
+                    // });
+                    divnode.load('hashunbox.html?'+r);
+                    // .text(
+                    // "<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 150 150'><style>.base { fill: white; font-family: serif; font-size: 14px; }.big{ fill: white; font-family: italic; font-size: 80px; }</style><rect width='100%' height='100%' fill='black' /><text x='15' y='20' class='base'>HashCommunity</text><text x='10' y='90' class='big'>?</text><text x='15' y='110' class='base'>ID: 0</text></svg>"
+                    // );
+                    // var svg = $("<svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMinYMin meet' viewBox='0 0 150 150'></svg>");
+                    // var rect = $("<rect width='100%' height='100%' fill='black' ></rect>");
+                    // svg.append(rect);
+                    // var text1 = $("<text x='15' y='110'>ID: 0</text>");
+                    // svg.append(text1);
+                    // divnode.append(svg);
+                    node.append(divnode);
+                    myboxes.append(node);
+                });
+            }
         });
     },
     verify(){
@@ -95,9 +139,13 @@ App = {
             console.log("setVerifyAddress "+e);
         });
     },
-    buy(){
-        contractsInstance.seven.methods.setTokenPrice(1000).send({ from: defaultAccount }, function (e, r) {
-            console.log("buy "+e);
+    buy(amount){
+        console.log("buy "+amount);
+        // var _price = 0.1 * 10 ** 18 * amount;
+        var _price = nftprice * amount;
+        let strvalue = Web3.utils.toHex(_price);
+        contractsInstance.seven.methods.mintTokens(amount).send({ from: defaultAccount,value:strvalue }, function (e, r) {
+            console.log("buy "+e+","+r);
             // afterSendTx(e, r);
         });
     },
@@ -112,6 +160,23 @@ App = {
             console.log("set presale "+e+r);
         });
     },
+    setBaseUrl(){
+        var baseurl = 'baidu.com';
+        contractsInstance.seven.methods.setBaseURI(baseurl).send({from:defaultAccount},(e,r)=>{
+            console.log("set base url "+e+","+r);
+        });
+    },
+    startSale(){
+        var startTime = Date.parse(new Date())/1000;
+        var maxCount = 10;
+        contractsInstance.seven.methods.setUpSale(startTime,maxCount).send({from:defaultAccount},(e,r)=>{
+            console.log("start sale "+e+","+r);
+        });
+    },
+    // function setUpSale(
+    //     uint256 startTime,
+    //     uint256 initMaxCount,
+    // ) 
     check(){
         let signaddress = $("#signaddress").val();
         let signature = $("#signature").val();
