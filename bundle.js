@@ -65782,7 +65782,7 @@ App = {
                     console.log("my nft token id="+r);
                     var myboxes = $("#myboxes");
                     // myboxes.load('hashunbox.html?'+r);
-                    var node = $("<li></li>");
+                    var node = $("<li class='myboxli'></li>");
                     var divnode=$("<div class='content'></div>");
                     // var svg = 'hashunbox.html#'+r;
                     // divnode.get('hashunbox.html',{id:r});

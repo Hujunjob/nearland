@@ -11405,3 +11405,16 @@ footer.footer {
   position: relative;
   width: 100%;
 }
+
+.myboxli{
+  list-style: none;
+  display: inline-block;
+  width: 24%;
+  /*三列图片排列*/
+  text-align: center;
+  /*内容居中*/
+  overflow: hidden;
+  /*超出隐藏*/
+  vertical-align: bottom;
+  /*内容底部对齐*/
+}
